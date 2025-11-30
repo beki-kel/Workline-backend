@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database (for local development)
+  postgres:
+    image: postgres:16-alpine
+    container_name: workline-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: workline
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - workline-network
+
+  # Application
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: workline-backend
+    restart: unless-stopped
+    ports:
+      - '3000:3000'
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/workline?schema=public
+    depends_on:
+      - postgres
+    networks:
+      - workline-network
+    # Uncomment below to use .env file
+    # env_file:
+    #   - .env
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  workline-network:
+    driver: bridge

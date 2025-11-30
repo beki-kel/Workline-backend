@@ -1,0 +1,91 @@
+import { Injectable } from '@nestjs/common';
+import { auth } from '../config/auth.config';
+import { CreateOrganizationDto } from './dto/create-organization.dto';
+import { UpdateOrganizationDto } from './dto/update-organization.dto';
+
+@Injectable()
+export class OrganizationsService {
+    /**
+     * Create a new organization
+     */
+    async create(createOrganizationDto: CreateOrganizationDto, headers: Headers) {
+        const { name, slug, description } = createOrganizationDto;
+
+        const result = await auth.api.createOrganization({
+            body: {
+                name,
+                slug: (slug || this.generateSlug(name)) as string,
+                metadata: { description: description || '' },
+            },
+            headers,
+        });
+
+        return result;
+    }
+
+    /**
+     * Find all organizations for a user
+     */
+    async findAllByUser(headers: Headers) {
+        const result = await auth.api.listOrganization({
+            headers,
+        });
+        return result;
+    }
+
+    /**
+     * Find one organization by ID
+     */
+    async findOne(id: string, headers: Headers) {
+        const result = await auth.api.getFullOrganization({
+            query: {
+                orgId: id,
+            },
+            headers,
+        });
+        return result;
+    }
+
+    /**
+     * Update organization
+     */
+    async update(id: string, updateOrganizationDto: UpdateOrganizationDto, headers: Headers) {
+        const result = await auth.api.updateOrganization({
+            body: {
+                organizationId: id,
+                data: {
+                    name: updateOrganizationDto.name,
+                    slug: updateOrganizationDto.slug,
+                    metadata: { description: updateOrganizationDto.description },
+                },
+            },
+            headers,
+        });
+        return result;
+    }
+
+    /**
+     * Delete organization
+     */
+    async remove(id: string, headers: Headers) {
+        const result = await auth.api.deleteOrganization({
+            body: {
+                orgId: id,
+            },
+            headers,
+        });
+        return result;
+    }
+
+    /**
+     * Generate URL-friendly slug from name
+     */
+    private generateSlug(name: string): string {
+        return name
+            .toLowerCase()
+            .replace(/[^\w\s-]/g, '')
+            .replace(/\s+/g, '-')
+            .replace(/-+/g, '-')
+            .trim();
+    }
+}
