@@ -10,7 +10,7 @@ import { CurrentUser } from '../auth/decorators/current-user.decorator';
 @ApiTags('Invitations')
 @ApiBearerAuth()
 @UseGuards(AuthGuard)
-@Controller('api')
+@Controller()
 export class InvitationsController {
     constructor(private readonly invitationsService: InvitationsService) { }
 

@@ -27,7 +27,7 @@ export class OrganizationsService {
      * Find all organizations for a user
      */
     async findAllByUser(headers: Headers) {
-        const result = await auth.api.listOrganization({
+        const result = await auth.api.listOrganizations({
             headers,
         });
         return result;
@@ -39,7 +39,7 @@ export class OrganizationsService {
     async findOne(id: string, headers: Headers) {
         const result = await auth.api.getFullOrganization({
             query: {
-                orgId: id,
+                organizationId: id,
             },
             headers,
         });
@@ -70,7 +70,7 @@ export class OrganizationsService {
     async remove(id: string, headers: Headers) {
         const result = await auth.api.deleteOrganization({
             body: {
-                orgId: id,
+                organizationId: id,
             },
             headers,
         });

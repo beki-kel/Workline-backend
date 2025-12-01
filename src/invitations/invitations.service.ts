@@ -38,7 +38,7 @@ export class InvitationsService {
     async findPendingByOrganization(organizationId: string, headers: Headers) {
         const org = await auth.api.getFullOrganization({
             query: {
-                orgId: organizationId,
+                organizationId: organizationId,
             },
             headers,
         });

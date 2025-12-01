@@ -9,7 +9,7 @@ import { Request } from 'express';
 @ApiTags('Organizations')
 @ApiBearerAuth()
 @UseGuards(AuthGuard)
-@Controller('api/organizations')
+@Controller('organizations')
 export class OrganizationsController {
     constructor(private readonly organizationsService: OrganizationsService) { }
 

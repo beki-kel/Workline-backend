@@ -12,6 +12,11 @@ export class AuthGuard implements CanActivate {
             throw new UnauthorizedException('You must be logged in to access this resource');
         }
 
+        // Check if email is verified when email verification is required
+        if (!request.user.emailVerified) {
+            throw new UnauthorizedException('Please verify your email address before accessing this resource');
+        }
+
         return true;
     }
 }

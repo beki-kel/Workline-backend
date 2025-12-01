@@ -1,6 +1,6 @@
 import { IsString, IsEnum, IsInt, IsOptional } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { SectionType, OutlineStatus, Reviewer } from '@prisma/client';
+import { SectionType, OutlineStatus } from '@prisma/client';
 
 export class CreateOutlineDto {
     @ApiProperty({ description: 'Header of the outline section' })
@@ -24,7 +24,7 @@ export class CreateOutlineDto {
     @IsInt()
     limit: number;
 
-    @ApiProperty({ enum: Reviewer, description: 'Assigned reviewer' })
-    @IsEnum(Reviewer)
-    reviewer: Reviewer;
+    @ApiProperty({ description: 'ID of the assigned reviewer (User ID)' })
+    @IsString()
+    reviewerId: string;
 }

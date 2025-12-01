@@ -20,7 +20,45 @@ export const auth = betterAuth({
 
     emailAndPassword: {
         enabled: true,
-        requireEmailVerification: false,
+        requireEmailVerification: true,
+        sendPasswordResetEmail: async ({ user, url }: { user: { email: string }, url: string }) => {
+            console.log('🔔 Sending password reset email to:', user.email);
+            console.log('🔗 Reset URL:', url);
+            try {
+                await sendEmail({
+                    to: user.email,
+                    subject: "Reset your password",
+                    text: `Click the link to reset your password: ${url}`,
+                    html: `<p>You requested to reset your password.</p><p><a href="${url}">Click here to reset your password</a></p>`,
+                });
+                console.log('✅ Password reset email sent successfully to:', user.email);
+            } catch (error) {
+                console.error('❌ Error sending password reset email:', error);
+                throw error;
+            }
+        },
+    },
+
+    emailVerification: {
+        sendOnSignUp: true,
+        autoSignInAfterVerification: true,
+        sendVerificationEmail: async ({ user, url }: { user: { email: string }, url: string }) => {
+            console.log('🔔 Sending verification email to:', user.email);
+            console.log('🔗 Verification URL:', url);
+
+            try {
+                await sendEmail({
+                    to: user.email,
+                    subject: "Verify your email address",
+                    text: `Click the link to verify your email: ${url}`,
+                    html: `<p>Welcome! Please verify your email address to get started.</p><p><a href="${url}">Click here to verify your email</a></p>`,
+                });
+                console.log('✅ Verification email sent successfully to:', user.email);
+            } catch (error) {
+                console.error('❌ Error sending verification email:', error);
+                throw error;
+            }
+        },
     },
 
     socialProviders: {
@@ -49,11 +87,11 @@ export const auth = betterAuth({
                     html: `<p>You have been invited to join <strong>${data.organization.name}</strong> as a <strong>${data.role}</strong>.</p><p><a href="${inviteLink}">Click here to accept</a></p>`,
                 });
             },
-        }) as any,
+        }),
     ],
 
-    secret: process.env.BETTER_AUTH_SECRET || 'your-secret-key-min-32-characters',
-    baseURL: process.env.BETTER_AUTH_URL || 'http://localhost:3000',
+    secret: process.env.BETTER_AUTH_SECRET,
+    baseURL: process.env.BETTER_AUTH_URL,
     basePath: '/api/auth',
 
     trustedOrigins: [
@@ -61,6 +99,13 @@ export const auth = betterAuth({
         'http://localhost:3001',
         process.env.APP_URL || '',
     ].filter(Boolean),
-}) as any;
+
+    advanced: {
+        defaultCookieAttributes: {
+            sameSite: 'lax',
+            secure: process.env.NODE_ENV === 'production',
+        },
+    },
+});
 
 export type AuthSession = typeof auth.$Infer.Session;

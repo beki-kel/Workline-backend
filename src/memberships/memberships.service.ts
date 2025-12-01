@@ -9,7 +9,7 @@ export class MembershipsService {
     async findAllByOrganization(organizationId: string, headers: Headers) {
         const result = await auth.api.getFullOrganization({
             query: {
-                orgId: organizationId,
+                organizationId: organizationId,
             },
             headers,
         });
@@ -81,7 +81,7 @@ export class MembershipsService {
     private async getMemberId(organizationId: string, userId: string, headers: Headers): Promise<string> {
         const org = await auth.api.getFullOrganization({
             query: {
-                orgId: organizationId,
+                organizationId: organizationId,
             },
             headers,
         });

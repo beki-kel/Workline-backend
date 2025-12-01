@@ -11,7 +11,7 @@ import { CurrentUser } from '../auth/decorators/current-user.decorator';
 @ApiTags('Memberships')
 @ApiBearerAuth()
 @UseGuards(AuthGuard)
-@Controller('api/organizations/:organizationId')
+@Controller('organizations/:organizationId')
 export class MembershipsController {
     constructor(private readonly membershipsService: MembershipsService) { }
 
@@ -51,7 +51,7 @@ export class MembershipsController {
 @ApiTags('Memberships')
 @ApiBearerAuth()
 @UseGuards(AuthGuard)
-@Controller('api/organizations/:organizationId')
+@Controller('organizations/:organizationId')
 export class OwnershipController {
     constructor(private readonly membershipsService: MembershipsService) { }
 

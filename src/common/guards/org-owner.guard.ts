@@ -16,7 +16,7 @@ export class OrgOwnerGuard implements CanActivate {
             const headers = new Headers(request.headers as any);
             const org = await auth.api.getFullOrganization({
                 query: {
-                    orgId: organizationId,
+                    organizationId: organizationId,
                 },
                 headers,
             });

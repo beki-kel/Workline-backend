@@ -9,7 +9,7 @@ import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagg
 @ApiTags('Outlines')
 @ApiBearerAuth()
 @UseGuards(AuthGuard, OrgMemberGuard)
-@Controller('api/organizations/:organizationId/outlines')
+@Controller('/organizations/:organizationId/outlines')
 export class OutlinesController {
     constructor(private readonly outlinesService: OutlinesService) { }
 

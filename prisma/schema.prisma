@@ -20,6 +20,7 @@ model User {
   updatedAt     DateTime
   sessions      Session[]
   accounts      Account[]
+  outlinesToReview Outline[] @relation("OutlineReviewer")
 
   @@unique([email])
   @@map("user")
@@ -78,7 +79,8 @@ model Outline {
   status         OutlineStatus @default(PENDING)
   target         Int
   limit          Int
-  reviewer       Reviewer
+  reviewerId     String
+  reviewer       User          @relation("OutlineReviewer", fields: [reviewerId], references: [id])
   organizationId String
   createdAt      DateTime      @default(now())
   updatedAt      DateTime      @updatedAt
@@ -100,12 +102,6 @@ enum OutlineStatus {
   PENDING
   IN_PROGRESS
   COMPLETED
-}
-
-enum Reviewer {
-  ASSIM
-  BINI
-  MAMI
 }
 
 // Organization Models (Better Auth Organization Plugin)

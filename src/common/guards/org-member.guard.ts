@@ -7,30 +7,43 @@ export class OrgMemberGuard implements CanActivate {
         const request = context.switchToHttp().getRequest();
         const organizationId = request.params.id || request.params.organizationId;
         const user = request.user;
+        const session = request.session;
 
         if (!user || !organizationId) {
-            return false;
+            throw new ForbiddenException('Authentication required');
         }
 
-        // Check if active organization matches
-        if (request.session?.activeOrganizationId === organizationId) {
+        // Check if the active organization matches the requested organizationId
+        // Better Auth sets activeOrganizationId in the session
+        if (session?.activeOrganizationId === organizationId) {
+            // Attach organization context to request for controllers
+            request.organizationId = organizationId;
+            request.userRole = session.role || 'member';
+            request.isOrgOwner = session.role === 'owner';
+            request.isOrgAdmin = session.role === 'admin' || session.role === 'owner';
             return true;
         }
 
+        // If active organization doesn't match, check if user is a member
         try {
-            // Check membership via Better Auth API
             const headers = new Headers(request.headers as any);
             const org = await auth.api.getFullOrganization({
                 query: {
-                    orgId: organizationId,
+                    organizationId: organizationId,
                 },
                 headers,
             });
 
-            const isMember = org?.members.some((m: any) => m.userId === user.id);
-            if (!isMember) {
+            const member = org?.members.find((m: any) => m.userId === user.id);
+            if (!member) {
                 throw new ForbiddenException('You are not a member of this organization');
             }
+
+            // Attach member role to request for use in controllers
+            request.organizationId = organizationId;
+            request.userRole = member.role;
+            request.isOrgOwner = member.role === 'owner';
+            request.isOrgAdmin = member.role === 'admin' || member.role === 'owner';
 
             return true;
         } catch (error) {
