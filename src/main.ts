@@ -26,6 +26,7 @@ async function bootstrap() {
     app.enableCors({
         origin: [
             'http://localhost:3001',
+            'https://workline-frontend.vercel.app/',
             'https://workline-frontend.vercel.app',
             process.env.APP_URL || '',
         ].filter(Boolean),
