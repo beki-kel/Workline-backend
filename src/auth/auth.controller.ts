@@ -14,6 +14,8 @@ export class AuthController {
     @All('*')
     @ApiExcludeEndpoint()
     async handleAuth(@Req() req: Request, @Res() res: Response) {
+        console.log('🔐 Auth Request:', req.method, req.url);
+        console.log('📦 Body:', req.body);
         const nodeHandler = toNodeHandler(auth);
         return nodeHandler(req, res);
     }
