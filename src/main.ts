@@ -5,6 +5,7 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module.js';
 import { HttpExceptionFilter } from './common/filters/http-exception.filter.js';
 import cookieParser from 'cookie-parser';
+import express from 'express';
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule, {
@@ -18,7 +19,6 @@ async function bootstrap() {
     app.use(cookieParser());
 
     // Enable body parsing (since we disabled default bodyParser)
-    const express = require('express');
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
 
