@@ -142,16 +142,15 @@ export const auth = betterAuth({
     basePath: '/api/auth',
 
     trustedOrigins: [
-        'http://localhost:3000',
         'http://localhost:3001',
-
+        'https://workline-frontend.vercel.app',
         process.env.APP_URL || '',
     ].filter(Boolean),
 
     advanced: {
         defaultCookieAttributes: {
-            sameSite: 'lax',
-            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'none', // Changed from 'lax' to 'none' for cross-domain OAuth
+            secure: true, // Always true for production cross-domain cookies
         },
     },
 });
