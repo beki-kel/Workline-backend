@@ -144,7 +144,6 @@ export const auth = betterAuth({
     trustedOrigins: [
         'http://localhost:3001',
         'https://workline-frontend.vercel.app',
-        'https://workline-frontend.vercel.app/',
         process.env.APP_URL || '',
     ].filter(Boolean),
 
