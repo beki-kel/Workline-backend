@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
-import { PrismaService } from '../database/prisma.service';
-import { CreateOutlineDto } from './dto/create-outline.dto';
-import { UpdateOutlineDto } from './dto/update-outline.dto';
+import { PrismaService } from '../database/prisma.service.js';
+import { CreateOutlineDto } from './dto/create-outline.dto.js';
+import { UpdateOutlineDto } from './dto/update-outline.dto.js';
 
 @Injectable()
 export class OutlinesService {

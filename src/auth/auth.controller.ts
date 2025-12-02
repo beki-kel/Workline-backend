@@ -1,7 +1,7 @@
 import { Controller, All, Req, Res } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse, ApiBody, ApiExcludeEndpoint } from '@nestjs/swagger';
 import { Request, Response } from 'express';
-import { auth } from '../config/auth.config';
+import { auth } from '../config/auth.config.js';
 
 import { toNodeHandler } from 'better-auth/node';
 

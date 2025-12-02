@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { MemberRole } from '../enums/member-role.enum';
-import { UserEntity } from './user.entity';
-import { OrganizationEntity } from './organization.entity';
+import { MemberRole } from '../enums/member-role.enum.js';
+import { UserEntity } from './user.entity.js';
+import { OrganizationEntity } from './organization.entity.js';
 
 export class MembershipEntity {
     @ApiProperty({ example: 'clx1234567890', description: 'Unique membership ID' })

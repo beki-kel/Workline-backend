@@ -1,5 +1,5 @@
 import { CanActivate, ExecutionContext, Injectable, ForbiddenException } from '@nestjs/common';
-import { auth } from '../../config/auth.config';
+import { auth } from '../../config/auth.config.js';
 
 @Injectable()
 export class OrgMemberGuard implements CanActivate {

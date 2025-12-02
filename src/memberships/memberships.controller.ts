@@ -1,12 +1,12 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req } from '@nestjs/common';
-import { MembershipsService } from './memberships.service';
-import { TransferOwnershipDto } from './dto/transfer-ownership.dto';
-import { AuthGuard } from '../auth/guards/auth.guard';
-import { OrgMemberGuard } from '../common/guards/org-member.guard';
-import { OrgOwnerGuard } from '../common/guards/org-owner.guard';
+import { MembershipsService } from './memberships.service.js';
+import { TransferOwnershipDto } from './dto/transfer-ownership.dto.js';
+import { AuthGuard } from '../auth/guards/auth.guard.js';
+import { OrgMemberGuard } from '../common/guards/org-member.guard.js';
+import { OrgOwnerGuard } from '../common/guards/org-owner.guard.js';
 import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
 import { Request } from 'express';
-import { CurrentUser } from '../auth/decorators/current-user.decorator';
+import { CurrentUser } from '../auth/decorators/current-user.decorator.js';
 
 @ApiTags('Memberships')
 @ApiBearerAuth()

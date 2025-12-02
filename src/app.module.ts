@@ -1,10 +1,10 @@
 import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { PrismaModule } from './database/prisma.module';
-import { AuthModule } from './auth/auth.module';
-import { OrganizationsModule } from './organizations/organizations.module';
-import { MembershipsModule } from './memberships/memberships.module';
-import { OutlinesModule } from './outlines/outlines.module';
+import { PrismaModule } from './database/prisma.module.js';
+import { AuthModule } from './auth/auth.module.js';
+import { OrganizationsModule } from './organizations/organizations.module.js';
+import { MembershipsModule } from './memberships/memberships.module.js';
+import { OutlinesModule } from './outlines/outlines.module.js';
 import { json, urlencoded } from 'express';
 
 @Module({

@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { OutlinesService } from './outlines.service';
-import { OutlinesController } from './outlines.controller';
+import { OutlinesService } from './outlines.service.js';
+import { OutlinesController } from './outlines.controller.js';
 
 @Module({
     controllers: [OutlinesController],

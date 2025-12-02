@@ -1,9 +1,9 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
-import { OutlinesService } from './outlines.service';
-import { CreateOutlineDto } from './dto/create-outline.dto';
-import { UpdateOutlineDto } from './dto/update-outline.dto';
-import { AuthGuard } from '../auth/guards/auth.guard';
-import { OrgMemberGuard } from '../common/guards/org-member.guard';
+import { OutlinesService } from './outlines.service.js';
+import { CreateOutlineDto } from './dto/create-outline.dto.js';
+import { UpdateOutlineDto } from './dto/update-outline.dto.js';
+import { AuthGuard } from '../auth/guards/auth.guard.js';
+import { OrgMemberGuard } from '../common/guards/org-member.guard.js';
 import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
 
 @ApiTags('Outlines')

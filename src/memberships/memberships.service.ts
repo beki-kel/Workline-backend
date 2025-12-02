@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { auth } from '../config/auth.config';
+import { auth } from '../config/auth.config.js';
 
 @Injectable()
 export class MembershipsService {

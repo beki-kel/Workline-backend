@@ -7,7 +7,7 @@ import { PrismaClient } from "@prisma/client";
 import { organization } from 'better-auth/plugins';
 import { PrismaPg } from '@prisma/adapter-pg';
 import { Pool } from 'pg';
-import { sendEmail } from '../common/utils/email';
+import { sendEmail } from '../common/utils/email.js';
 
 const getTemplate = (templateName: string, replacements: Record<string, string>) => {
     const templatePath = path.join(process.cwd(), 'templates', templateName);

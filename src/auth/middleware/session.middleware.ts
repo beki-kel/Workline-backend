@@ -1,6 +1,6 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
-import { auth } from '../../config/auth.config';
+import { auth } from '../../config/auth.config.js';
 
 declare global {
     namespace Express {

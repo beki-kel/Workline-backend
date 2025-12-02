@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { auth } from '../config/auth.config';
-import { CreateOrganizationDto } from './dto/create-organization.dto';
-import { UpdateOrganizationDto } from './dto/update-organization.dto';
+import { auth } from '../config/auth.config.js';
+import { CreateOrganizationDto } from './dto/create-organization.dto.js';
+import { UpdateOrganizationDto } from './dto/update-organization.dto.js';
 
 @Injectable()
 export class OrganizationsService {

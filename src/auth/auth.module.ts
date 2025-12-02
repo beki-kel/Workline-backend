@@ -1,7 +1,7 @@
 import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common';
-import { AuthController } from './auth.controller';
-import { SessionMiddleware } from './middleware/session.middleware';
-import { AuthGuard } from './guards/auth.guard';
+import { AuthController } from './auth.controller.js';
+import { SessionMiddleware } from './middleware/session.middleware.js';
+import { AuthGuard } from './guards/auth.guard.js';
 
 @Module({
     controllers: [AuthController],

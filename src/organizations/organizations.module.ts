@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { OrganizationsService } from './organizations.service';
-import { OrganizationsController } from './organizations.controller';
-import { PrismaModule } from '../database/prisma.module';
-import { OrgMemberGuard } from '../common/guards/org-member.guard';
-import { OrgOwnerGuard } from '../common/guards/org-owner.guard';
+import { OrganizationsService } from './organizations.service.js';
+import { OrganizationsController } from './organizations.controller.js';
+import { PrismaModule } from '../database/prisma.module.js';
+import { OrgMemberGuard } from '../common/guards/org-member.guard.js';
+import { OrgOwnerGuard } from '../common/guards/org-owner.guard.js';
 
 @Module({
     imports: [PrismaModule],
