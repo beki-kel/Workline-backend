@@ -36,24 +36,28 @@ export const auth = betterAuth({
         requireEmailVerification: true,
         resetPasswordTokenExpiresIn: 60 * 30, // 30 minutes (in seconds)
 
-        sendResetPassword: async ({ user, url, token }, request) => {
+        sendResetPassword: async ({ user, url }, request) => {
             console.log('🔔 Sending password reset email to:', user.email);
             console.log('🔗 Reset URL:', url);
 
-            void sendEmail({
-                to: user.email,
-                subject: "Reset your password",
-                text: `Click the link to reset your password: ${url}`,
-                html: getTemplate('password-reset.html', {
-                    TITLE: 'Reset your password',
-                    MESSAGE: 'You requested to reset your password. Click the button below to reset it.',
-                    ACTION_URL: url,
-                    ACTION_TEXT: 'Reset Password',
-                    SECURITY_TIP: 'If you did not request a password reset, please ignore this email or contact support if you have concerns.',
-                }),
-            }).catch((error) => {
+            try {
+                await sendEmail({
+                    to: user.email,
+                    subject: "Reset your password",
+                    text: `Click the link to reset your password: ${url}`,
+                    html: getTemplate('password-reset.html', {
+                        TITLE: 'Reset your password',
+                        MESSAGE: 'You requested to reset your password. Click the button below to reset it.',
+                        ACTION_URL: url,
+                        ACTION_TEXT: 'Reset Password',
+                        SECURITY_TIP: 'If you did not request a password reset, please ignore this email or contact support if you have concerns.',
+                    }),
+                });
+                console.log('✅ Password reset email sent successfully to:', user.email);
+            } catch (error) {
                 console.error('❌ Error sending reset password email:', error);
-            });
+                throw error;
+            }
         },
     },
 

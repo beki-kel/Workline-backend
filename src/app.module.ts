@@ -4,7 +4,6 @@ import { PrismaModule } from './database/prisma.module';
 import { AuthModule } from './auth/auth.module';
 import { OrganizationsModule } from './organizations/organizations.module';
 import { MembershipsModule } from './memberships/memberships.module';
-import { InvitationsModule } from './invitations/invitations.module';
 import { OutlinesModule } from './outlines/outlines.module';
 import { json, urlencoded } from 'express';
 
@@ -23,7 +22,6 @@ import { json, urlencoded } from 'express';
         AuthModule,
         OrganizationsModule,
         MembershipsModule,
-        InvitationsModule,
         OutlinesModule,
     ],
     controllers: [],

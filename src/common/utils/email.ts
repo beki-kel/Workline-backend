@@ -7,10 +7,13 @@ if (!smtpUser || !smtpPass) {
     console.warn('⚠️ SMTP_USER or SMTP_PASSWORD is missing. Email sending may fail.');
 }
 
+const port = parseInt(process.env.SMTP_PORT || '587');
+const isSecure = process.env.SMTP_SECURE === 'true' || port === 465;
+
 const transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST,
-    port: parseInt(process.env.SMTP_PORT || '587'),
-    secure: process.env.SMTP_SECURE === 'true',
+    port: port,
+    secure: isSecure,
     auth: (smtpUser && smtpPass) ? {
         user: smtpUser,
         pass: smtpPass,

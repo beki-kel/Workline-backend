@@ -16,6 +16,14 @@ export class AuthController {
     async handleAuth(@Req() req: Request, @Res() res: Response) {
         console.log('🔐 Auth Request:', req.method, req.url);
         console.log('📦 Body:', req.body);
+
+        // Special logging for password reset
+        if (req.url.includes('forget-password') || req.url.includes('reset-password')) {
+            console.log('🔑 PASSWORD RESET REQUEST DETECTED');
+            console.log('📧 Email in body:', req.body?.email);
+            console.log('🎫 Token in body:', req.body?.token);
+        }
+
         const nodeHandler = toNodeHandler(auth);
         return nodeHandler(req, res);
     }

@@ -5,7 +5,7 @@ import { auth } from '../../config/auth.config';
 export class OrgMemberGuard implements CanActivate {
     async canActivate(context: ExecutionContext): Promise<boolean> {
         const request = context.switchToHttp().getRequest();
-        const organizationId = request.params.id || request.params.organizationId;
+        const organizationId = request.params.organizationId; // Fixed: only use organizationId
         const user = request.user;
         const session = request.session;
 
@@ -47,6 +47,10 @@ export class OrgMemberGuard implements CanActivate {
 
             return true;
         } catch (error) {
+            console.error('❌ OrgMemberGuard Error:', error);
+            console.error('User ID:', user.id);
+            console.error('Organization ID:', organizationId);
+            console.error('Error details:', error.message || error);
             throw new ForbiddenException('Access denied');
         }
     }
