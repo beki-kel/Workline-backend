@@ -45,7 +45,7 @@ COPY --from=builder /app/dist ./dist
 RUN npm install -g prisma && prisma generate && npm uninstall -g prisma
 
 # Expose port
-EXPOSE 3000
+EXPOSE 24731
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
