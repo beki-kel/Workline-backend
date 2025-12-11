@@ -25,7 +25,7 @@ services:
     container_name: workline-backend
     restart: unless-stopped
     ports:
-      - '3000:3000'
+      - '24731:3000'
     environment:
       - NODE_ENV=production
       - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/workline?schema=public
