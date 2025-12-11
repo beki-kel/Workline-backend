@@ -42,7 +42,7 @@ COPY --from=builder /app/dist ./dist
 
 
 # Generate Prisma Client in production
-RUN npx -y prisma generate
+RUN npm install -g prisma && prisma generate && npm uninstall -g prisma
 
 # Expose port
 EXPOSE 3000
