@@ -53,6 +53,9 @@ importers:
       pg:
         specifier: ^8.13.1
         version: 8.16.3
+      prisma:
+        specifier: ^6.0.0
+        version: 6.19.1(typescript@5.9.3)
       reflect-metadata:
         specifier: ^0.1.14
         version: 0.1.14
@@ -105,9 +108,6 @@ importers:
       prettier:
         specifier: ^3.1.1
         version: 3.7.3
-      prisma:
-        specifier: ^6.0.0
-        version: 6.19.1(typescript@5.9.3)
       source-map-support:
         specifier: ^0.5.21
         version: 0.5.21
