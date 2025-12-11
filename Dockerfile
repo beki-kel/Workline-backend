@@ -39,7 +39,7 @@ RUN pnpm install --prod --frozen-lockfile
 
 # Copy built application from builder
 COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
+
 
 # Generate Prisma Client in production
 RUN pnpm prisma generate
