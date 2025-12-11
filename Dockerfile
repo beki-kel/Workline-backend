@@ -42,7 +42,7 @@ COPY --from=builder /app/dist ./dist
 
 
 # Generate Prisma Client in production
-RUN pnpm prisma generate
+RUN npx -y prisma generate
 
 # Expose port
 EXPOSE 3000
