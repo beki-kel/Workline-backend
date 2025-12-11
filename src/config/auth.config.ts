@@ -148,9 +148,10 @@ export const auth = betterAuth({
     ].filter(Boolean),
 
     advanced: {
+        noLegacyEdgeRuntime: true, // Enable modern cookie handling for cross-browser compatibility
         defaultCookieAttributes: {
-            sameSite: 'none', // Changed from 'lax' to 'none' for cross-domain OAuth
-            secure: true, // Always true for production cross-domain cookies
+            sameSite: 'none', // Required for cross-domain OAuth to work in all browsers
+            secure: true, // Required when sameSite is 'none' and for production
         },
     },
 });
