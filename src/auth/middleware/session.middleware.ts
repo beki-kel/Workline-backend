@@ -17,11 +17,18 @@ export class SessionMiddleware implements NestMiddleware {
         try {
             // Log incoming request for debugging
             const cookies = req.cookies || {};
-            const hasBetterAuthSession = cookies['better-auth.session_token'] || cookies['session_token'];
+            // Check for __Secure- prefixed cookies (set when secure:true)
+            const hasBetterAuthSession =
+                cookies['__Secure-better-auth.session_token'] ||
+                cookies['better-auth.session_token'] ||
+                cookies['session_token'];
 
             console.log('🔐 Session Middleware:', {
                 path: req.path,
                 method: req.method,
+                origin: req.headers.origin || 'not set',
+                referer: req.headers.referer || 'not set',
+                userAgent: req.headers['user-agent']?.substring(0, 50) || 'not set',
                 hasCookies: Object.keys(cookies).length > 0,
                 hasBetterAuthSession: !!hasBetterAuthSession,
                 cookieNames: Object.keys(cookies),
@@ -35,7 +42,11 @@ export class SessionMiddleware implements NestMiddleware {
             if (session && session.user) {
                 req.user = session.user;
                 req.session = session.session;
-                console.log('✅ Session validated for user:', session.user.email);
+                console.log('✅ Session validated:', {
+                    userId: session.user.id,
+                    email: session.user.email,
+                    hasOrganizations: session.user.id ? 'will check' : 'no user',
+                });
             } else {
                 console.log('⚠️ No valid session found');
                 req.user = null;

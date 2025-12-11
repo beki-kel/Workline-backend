@@ -27,9 +27,12 @@ export class OrganizationsService {
      * Find all organizations for a user
      */
     async findAllByUser(headers: Headers) {
+        console.log('🏢 Fetching organizations for user...');
         const result = await auth.api.listOrganizations({
             headers,
         });
+        console.log('✅ Organizations fetched:', result ? 'success' : 'empty');
+        console.log('📊 Org count:', Array.isArray(result) ? result.length : 'not an array');
         return result;
     }
 

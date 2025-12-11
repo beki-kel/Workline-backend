@@ -14,8 +14,14 @@ export class AuthController {
     @All('*')
     @ApiExcludeEndpoint()
     async handleAuth(@Req() req: Request, @Res() res: Response) {
+        // Enhanced debugging for cross-browser auth troubleshooting
         console.log('🔐 Auth Request:', req.method, req.url);
         console.log('📦 Body:', req.body);
+        console.log('🌐 Origin:', req.headers.origin || 'not set');
+        console.log('🔗 Referer:', req.headers.referer || 'not set');
+        console.log('🖥️  User-Agent:', req.headers['user-agent'] || 'not set');
+        console.log('🍪 Has Cookies:', Object.keys(req.cookies || {}).length > 0);
+        console.log('🍪 Cookie Names:', Object.keys(req.cookies || {}));
 
         // Special logging for password reset
         if (req.url.includes('forget-password') || req.url.includes('reset-password')) {
