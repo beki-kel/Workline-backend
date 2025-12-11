@@ -9,7 +9,7 @@ RUN corepack enable && corepack prepare pnpm@latest --activate
 # Copy package files
 COPY package.json pnpm-lock.yaml ./
 COPY prisma ./prisma/
-COPY prisma.config.js ./
+
 
 # Install all dependencies including dev
 RUN pnpm install --frozen-lockfile
@@ -37,7 +37,7 @@ COPY package.json pnpm-lock.yaml ./
 
 # Copy Prisma schema + config
 COPY prisma ./prisma/
-COPY prisma.config.js ./
+
 
 
 # Install only production dependencies (no devDependencies)
@@ -46,6 +46,7 @@ RUN pnpm install --prod --frozen-lockfile
 # Copy built dist + generated prisma client from builder stage
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/node_modules/@prisma ./node_modules/@prisma
+COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
 
 
 # NO prisma generate needed here ❌
