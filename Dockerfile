@@ -1,5 +1,5 @@
 # Stage 1: Build
-FROM node:22-alpine AS builder
+FROM node:20-alpine AS builder
 
 WORKDIR /app
 
@@ -17,17 +17,13 @@ RUN pnpm install --frozen-lockfile
 COPY . .
 
 # Generate Prisma Client
-# We use npx to ensure we use the local prisma version
-RUN pnpm exec prisma generate
+RUN pnpm prisma generate
 
 # Build application
 RUN pnpm build
 
 # Stage 2: Production
-FROM node:22-alpine AS production
-
-# Install OpenSSL for Prisma (required in Alpine)
-RUN apk add --no-cache openssl
+FROM node:20-alpine AS production
 
 WORKDIR /app
 
@@ -44,13 +40,12 @@ RUN pnpm install --prod --frozen-lockfile
 # Copy built application from builder
 COPY --from=builder /app/dist ./dist
 
+
 # Generate Prisma Client in production
-# We install prisma globally temporarily to generate the client, 
-# because 'pnpm install --prod' does not install devDependencies (like prisma CLI)
-RUN npm install -g prisma && prisma generate && npm uninstall -g prisma
+RUN npm install -g prisma && prisma generate 
 
 # Expose port
-EXPOSE 3000
+EXPOSE 24731
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
