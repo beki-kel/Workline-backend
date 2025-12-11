@@ -3,40 +3,46 @@ FROM node:20-alpine AS builder
 
 WORKDIR /app
 
+# Enable pnpm
+RUN corepack enable && corepack prepare pnpm@latest --activate
+
 # Copy package files
-COPY package*.json ./
+COPY package.json pnpm-lock.yaml ./
 COPY prisma ./prisma/
 
 # Install dependencies
-RUN npm ci
+RUN pnpm install --frozen-lockfile
 
 # Copy source code
 COPY . .
 
 # Generate Prisma Client
-RUN npm run prisma:generate
+RUN pnpm prisma generate
 
 # Build application
-RUN npm run build
+RUN pnpm build
 
 # Stage 2: Production
 FROM node:20-alpine AS production
 
 WORKDIR /app
 
+# Enable pnpm
+RUN corepack enable && corepack prepare pnpm@latest --activate
+
 # Copy package files
-COPY package*.json ./
+COPY package.json pnpm-lock.yaml ./
 COPY prisma ./prisma/
 
 # Install production dependencies only
-RUN npm ci --only=production
+RUN pnpm install --prod --frozen-lockfile
 
 # Copy built application from builder
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
 
 # Generate Prisma Client in production
-RUN npm run prisma:generate
+RUN pnpm prisma generate
 
 # Expose port
 EXPOSE 3000

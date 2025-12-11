@@ -33,9 +33,8 @@ services:
       - postgres
     networks:
       - workline-network
-    # Uncomment below to use .env file
-    # env_file:
-    #   - .env
+    env_file:
+      - .env
 
 volumes:
   postgres_data:
