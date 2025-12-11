@@ -26,15 +26,14 @@ services:
     restart: unless-stopped
     ports:
       - '24731:3000'
+    env_file:
+      - .env # MUST come before environment
     environment:
-      - NODE_ENV=production
-      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/workline?schema=public
+      NODE_ENV: production
     depends_on:
       - postgres
     networks:
       - workline-network
-    env_file:
-      - .env
 
 volumes:
   postgres_data:
