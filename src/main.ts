@@ -32,7 +32,7 @@ async function bootstrap() {
         ].filter(Boolean),
         credentials: true,
         methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-        allowedHeaders: ['Content-Type', 'Authorization', 'Cookie', 'X-Requested-With'],
+        allowedHeaders: ['Content-Type', 'Authorization', 'Cookie', 'X-Requested-With', 'user-agent'],
         exposedHeaders: ['Set-Cookie'],
         preflightContinue: false,
         optionsSuccessStatus: 204,
