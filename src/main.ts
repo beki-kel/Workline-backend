@@ -12,6 +12,7 @@ async function bootstrap() {
         bodyParser: false,
     });
 
+
     // Global prefix
     app.setGlobalPrefix('api');
 
