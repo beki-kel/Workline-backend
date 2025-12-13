@@ -7,6 +7,8 @@ import { MembershipsModule } from './memberships/memberships.module.js';
 import { OutlinesModule } from './outlines/outlines.module.js';
 import { json, urlencoded } from 'express';
 
+import { AppController } from './app.controller.js';
+
 @Module({
     imports: [
         // Configuration
@@ -24,7 +26,7 @@ import { json, urlencoded } from 'express';
         MembershipsModule,
         OutlinesModule,
     ],
-    controllers: [],
+    controllers: [AppController],
     providers: [],
 })
 export class AppModule implements NestModule {
