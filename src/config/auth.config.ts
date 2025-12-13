@@ -149,8 +149,24 @@ export const auth = betterAuth({
 
     advanced: {
         defaultCookieAttributes: {
-            sameSite: 'none', // Changed from 'lax' to 'none' for cross-domain OAuth
-            secure: true, // Always true for production cross-domain cookies
+            sameSite: 'none',
+            secure: true,
+        },
+        cookies: {
+            session_token: {
+                name: 'better-auth.session_token',
+                attributes: {
+                    sameSite: 'none',
+                    secure: true,
+                },
+            },
+            active_organization: {
+                name: 'better-auth.active_org',
+                attributes: {
+                    sameSite: 'none',
+                    secure: true,
+                },
+            },
         },
     },
 });
