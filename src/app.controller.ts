@@ -8,6 +8,6 @@ export class AppController {
     @ApiExcludeEndpoint()
     root(@Res() res: Response) {
         const frontendUrl = process.env.APP_URL || 'https://workline-frontend.vercel.app';
-        return res.redirect(frontendUrl);
+        return res.redirect(`${frontendUrl}/dashboard`);
     }
 }
