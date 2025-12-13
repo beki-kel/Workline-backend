@@ -1,6 +1,6 @@
 import 'dotenv/config';
 import { NestFactory } from '@nestjs/core';
-import { ValidationPipe, BadRequestException } from '@nestjs/common';
+import { ValidationPipe, BadRequestException, RequestMethod } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module.js';
 import { HttpExceptionFilter } from './common/filters/http-exception.filter.js';
@@ -14,7 +14,12 @@ async function bootstrap() {
 
 
     // Global prefix
-    app.setGlobalPrefix('api');
+    app.setGlobalPrefix('api', {
+        exclude: [{ path: '/', method: RequestMethod.GET }],
+    });
+
+    // Trust proxy (required for Vercel/Heroku/etc)
+    app.getHttpAdapter().getInstance().set('trust proxy', 1);
 
     // Cookie parser for Better Auth sessions
     app.use(cookieParser());
